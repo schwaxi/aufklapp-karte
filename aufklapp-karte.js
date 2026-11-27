@@ -1,4 +1,4 @@
-// aufklapp-karte v1.0.0
+// aufklapp-karte v1.0.1
 // Einzeln installierbares Modul (Home Assistant Marketplace / HACS, Kategorie Dashboard).
 window.customCards = window.customCards || [];
 window.customCardFeatures = window.customCardFeatures || [];
@@ -94,11 +94,16 @@ class AufklappKarte extends HTMLElement {
   }
 
   getCardSize() { return this._offen ? 1 + this._config.cards.length * 2 : 1; }
+  // Startwerte, auch fuer die Vorschau in der Kartenauswahl
+  static getStubConfig() {
+    return { titel: "Aufklapp-Karte", icon: "mdi:chevron-down-circle-outline", offen: true,
+      cards: [{ type: "markdown", content: "Beliebige Karten zum Auf- und Zuklappen." }] };
+  }
 }
 
 if (!customElements.get(TYPE4)) customElements.define(TYPE4, AufklappKarte);
 if (!window.customCards.some((c) => c.type === TYPE4)) {
-  window.customCards.push({ type: TYPE4, name: "Aufklapp-Karte", description: "Ueberschrift zum Auf- und Zuklappen mit beliebigen Karten darunter" });
+  window.customCards.push({ type: TYPE4, name: "Aufklapp-Karte", description: "Ueberschrift zum Auf- und Zuklappen mit beliebigen Karten darunter", preview: true });
 }
 }
 
